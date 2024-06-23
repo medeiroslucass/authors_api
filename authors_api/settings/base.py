@@ -126,10 +126,10 @@ ADMIN_URL = "supersecret/"
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "/staticfiles/"
-STATIC_ROOT = str(ROOT_DIR/ "staticfiles")
+STATIC_ROOT = str(ROOT_DIR / "staticfiles")
 
 STATIC_URL = "/mediafiles/"
-MEDIA_ROOT = str(ROOT_DIR/ "mediafiles")
+MEDIA_ROOT = str(ROOT_DIR / "mediafiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -138,6 +138,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 CORS_URLS_REGEX = r"^api/.*$"
+
+AUTH_USER_MODEL = "users.User"
 
 LOGGING = {
     "version": 1,
@@ -148,8 +150,8 @@ LOGGING = {
             " %(process)d %(thread)d %(message)s"
         }
     },
-    "handlers":{
-        "console":{
+    "handlers": {
+        "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
             "formatter": "verbose",
