@@ -1,17 +1,18 @@
 from django import forms
-from django.contrib.auth.forms import forms as admin_forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserChangeForm as AdminUserChangeForm
+from django.contrib.auth.forms import UserCreationForm as AdminUserCreationForm
 
 User = get_user_model()
 
 
-class UserChangeForm(admin_forms.UserChangeForm):
-    class Meta(admin_forms.UserChangeForm.Meta):
+class UserChangeForm(AdminUserChangeForm):
+    class Meta(AdminUserChangeForm.Meta):
         model = User
 
 
-class UserCreationForm(admin_forms.UserCreationForm):
-    class Meta(admin_forms.UserCreationForm.Meta):
+class UserCreationForm(AdminUserCreationForm):
+    class Meta(AdminUserCreationForm.Meta):
         model = User
         fields = ('first_name', 'last_name', 'email')
 
