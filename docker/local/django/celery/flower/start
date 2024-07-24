@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+# Verifica se as variáveis de ambiente estão definidas
+: "${CELERY_BROKER:?Variable not set or empty}"
+: "${CELERY_FLOWER_USER:?Variable not set or empty}"
+: "${CELERY_FLOWER_PASSWORD:?Variable not set or empty}"
+
+exec watchfiles celery.__main__.main \
+    --args \
+    "-A authors_api.celery -b \"${CELERY_BROKER}\" flower --basic_auth=\"${CELERY_FLOWER_USER}:${CELERY_FLOWER_PASSWORD}\""

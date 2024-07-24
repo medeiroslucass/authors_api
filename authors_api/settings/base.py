@@ -1,4 +1,6 @@
+import os
 from pathlib import Path
+
 import environ
 
 env = environ.Env()
@@ -28,7 +30,8 @@ THIRD_PARTY_APPS = [
     "django_countries",
     "phonenumber_field",
     "drf_yasg",
-    "corsheaders"]
+    "corsheaders",
+    "djcelery_email",]
 
 LOCAL_APPS = ["core_apps.profiles", "core_apps.common", "core_apps.users"]
 
@@ -128,7 +131,7 @@ ADMIN_URL = "supersecret/"
 STATIC_URL = "/staticfiles/"
 STATIC_ROOT = str(ROOT_DIR / "staticfiles")
 
-STATIC_URL = "/mediafiles/"
+MEDIA_URL = "/mediafiles/"
 MEDIA_ROOT = str(ROOT_DIR / "mediafiles")
 
 # Default primary key field type
@@ -140,6 +143,17 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_URLS_REGEX = r"^api/.*$"
 
 AUTH_USER_MODEL = "users.User"
+
+CELERY_BROKER_URL = env("CELERY_BROKER")
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_RESULT_BACKEND_MAX_RETRIES = 10
+CELERY_TASK_SEND_SENT_EVENT = True
+
+if USE_TZ:
+    CELERY_TIMEZONE = TIME_ZONE
 
 LOGGING = {
     "version": 1,
